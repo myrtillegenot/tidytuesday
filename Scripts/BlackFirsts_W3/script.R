@@ -66,29 +66,50 @@ firsts$person_accomplishment <- paste(firsts$person, "-", firsts$accomplishment)
 
 
 # Make graph -- vertical line with year one side then accomplishment and person underneath italicised. 
+#coolors : #EDF2F4
 
 
 
 ggplot(firsts, aes(year, observation)) +
   #geoms
-  geom_text(aes(label = person_accomplishment), check_overlap = TRUE, hjust = 0, size =0.4, family = "Lato", colour ="#EDF2F4") +
+  geom_text(aes(label = person_accomplishment), check_overlap = TRUE, hjust = 0, size =0.4, family = "Lato", colour ="white") +
   #axis scxales
-  scale_x_date(date_breaks = "5 years", expand=c(0,0)) +
+  scale_x_date(date_breaks = "5 years", expand=c(0,0), date_labels = "%Y") +
   scale_y_continuous(limits =c(0, 480), expand=c(0,0)) +
   #flip axis
   coord_cartesian(clip = "off") +
   #labels
-  labs(title = "The rate of change:\nAfrican American Firsts Over Time",
-       subtitle = "Still, I Rise") +
+  labs(title = "The Rate of Change\nAfrican American Firsts Over Time",
+       subtitle = "Still I Rise\n") +
+  #annotate 
+  annotate(geom = "text", size = 1, family = 'Lato', colour = "#EDF2F4",
+           x = as.Date("1738-01-01"),
+           y = c(8),
+           label = ("1738"),
+           hjust = "left") +
+  #discrepancy in dates here is on purpose -- 1960 label still shows 1960, just to avoid overlap/ 
+  annotate(geom = "text", size = 1, family = 'Lato', colour = "#EDF2F4",
+           x = as.Date("1950-01-01"),
+           y = c(208),
+           label = ("1960"),
+           hjust = "left") +
+  annotate(geom = "text", size = 1, family = 'Lato', colour = "#EDF2F4",
+           x = as.Date("2011-01-01"),
+           y = c(478),
+           label = ("2019"),
+           hjust = "left") +
+  #theme
   theme(text = element_text(family = "Roboto Black", size = 1),
         #blank background
-        plot.background=element_rect(fill = "#293241", color = "#293241"),
+        plot.background=element_rect(fill = "#1a1f29", color = "#1a1f29"),
+        plot.margin = unit(c(1,2,1,1),"cm"),
         panel.background = element_blank(),
         panel.grid.major = element_blank(),
-        panel.grid.minor = element_blank(),
+        panel.grid.minor = element_line(linetype = "dashed", size = 0.03),
+        panel.grid.minor.y = element_blank(),
         #text
         plot.title = element_text(size =10, hjust = 0.5, color = "#E1DEE3"),
-        plot.subtitle = element_text(size =8, family = "Darleston", hjust =0.5, colour = "#E1DEE3"),
+        plot.subtitle = element_text(size =8, family = "Times New Roman", face ="italic", hjust =0.5, colour = "#E1DEE3"),
         # axis lines
         axis.line.x = element_blank(),
         axis.line.y = element_blank(),
@@ -96,6 +117,8 @@ ggplot(firsts, aes(year, observation)) +
         axis.ticks.x = element_blank(),
         axis.ticks.y = element_blank(),
         #axis text
-        axis.text.x = element_text(angle = 90, color = "#8d0801"))
+        axis.text.x = element_text(size =1 , angle=90, color = "white"),
+        #axis title 
+        axis.title.x = element_blank()) 
 
- ggsave("~/Desktop/DataViz/TidyTuesday/Graphs/blackfirsts.pdf", width=9, height=12)
+ ggsave("~/Desktop/DataViz/TidyTuesday/Graphs/firsts.pdf", width=9, height=12)
