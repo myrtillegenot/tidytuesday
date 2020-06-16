@@ -6,7 +6,7 @@
 
 # Load libraries
 library('dplyr')
-library('ggplot')
+library('ggplot2')
 
 
 ##   1: Data 
@@ -74,7 +74,7 @@ manip1$discrete_volcanoes <- factor(manip1$discrete_volcanoes, levels = c("None"
 
 
 
-##   2 : Plot 
+##   2 : Plot ( Inspiration : Maarten Lambrechts)
 # Colour 
 group.colors <- c("None" = "grey", "Under 10" = "snow4", "Over 10" ="#7ebdc2", "Over 40" = "#f6aa1c", "Over 90" = "#bc3808")
 
@@ -104,7 +104,7 @@ volcano <-ggplot(manip1, aes(xmin = x, ymin = y, xmax = x + 1, ymax = y + 1, fil
   #labels
   labs(title = "Volcanoes : A Global Mosaic",
        subtitle = "Countries with the most volcanoes\n",
-       caption = '\nSource: The Smithsonian Institute',
+       caption = '\nSource: The Smithsonian Institute\nInspiration : Maarten Lambrechts',
        fill = 'Volcanoes') +
   #legend
   guides(fill = guide_legend(title.position = "top", 
